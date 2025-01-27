@@ -1,0 +1,19 @@
+{
+  "game": {
+    "title": "Gobang",
+    "yourNickname": "Your nickname",
+    "yourColor": "Your color",
+    "opponent": "Opponent",
+    "chooseOpponent": "Choose...",
+    "humanPlayer": "Human player",
+    "ai": "AI",
+    "startGame": "Start game",
+    "newGame": "New game",
+    "turn": "{{playerName}}'s turn",
+    "winner": "{{playerName}} won!",
+    "player2": "Player 2"
+  },
+  "colorSelection": {
+    "label": "Color selection"
+  }
+}

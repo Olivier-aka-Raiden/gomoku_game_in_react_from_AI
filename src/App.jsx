@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { findBestMove } from './utils/ai';
 
 function App() {
+  const { t } = useTranslation();
   const [theme, setTheme] = useState('light');
   const [gameState, setGameState] = useState({
     started: false,
@@ -77,12 +79,10 @@ function App() {
   };
 
   const handleIntersectionClick = (row, col) => {
-    // For AI mode, only allow moves when it's the player's turn
     if (gameState.opponent === 'ai' && gameState.currentPlayer !== gameState.playerColor) {
       return;
     }
 
-    // For both AI and human modes, allow moves if the intersection is empty
     if (!gameState.board[row][col]) {
       makeMove(row, col);
     }
@@ -101,10 +101,9 @@ function App() {
 
   const getCurrentPlayerName = () => {
     if (gameState.opponent === 'ai') {
-      return gameState.currentPlayer === gameState.playerColor ? gameState.playerName : 'IA';
+      return gameState.currentPlayer === gameState.playerColor ? gameState.playerName : t('game.ai');
     } else {
-      // Human vs Human mode
-      return gameState.currentPlayer === 'B' ? gameState.playerName : 'Joueur 2';
+      return gameState.currentPlayer === 'B' ? gameState.playerName : t('game.player2');
     }
   };
 
@@ -113,7 +112,6 @@ function App() {
     const horizontalLines = [];
     const verticalLines = [];
 
-    // Créer les lignes horizontales
     for (let i = 0; i < 19; i++) {
       horizontalLines.push(
           <div
@@ -124,7 +122,6 @@ function App() {
       );
     }
 
-    // Créer les lignes verticales
     for (let i = 0; i < 19; i++) {
       verticalLines.push(
           <div
@@ -135,7 +132,6 @@ function App() {
       );
     }
 
-    // Créer les intersections
     for (let i = 0; i < 19; i++) {
       for (let j = 0; j < 19; j++) {
         intersections.push(
@@ -178,9 +174,9 @@ function App() {
 
         {!gameState.started ? (
             <div className="dialog visible">
-              <h2>Gobang</h2>
+              <h2>{t('game.title')}</h2>
               <div className="form-group">
-                <label>Votre pseudo</label>
+                <label>{t('game.yourNickname')}</label>
                 <input
                     type="text"
                     value={gameState.playerName}
@@ -188,8 +184,8 @@ function App() {
                 />
               </div>
               <div className="form-group">
-                <label>Votre couleur</label>
-                <div className="color-choice" role="radiogroup" aria-label="Sélection de la couleur">
+                <label>{t('game.yourColor')}</label>
+                <div className="color-choice" role="radiogroup" aria-label={t('colorSelection.label')}>
                   <button
                       type="button"
                       role="radio"
@@ -211,29 +207,29 @@ function App() {
                 </div>
               </div>
               <div className="form-group">
-                <label>Adversaire</label>
+                <label>{t('game.opponent')}</label>
                 <select
                     value={gameState.opponent}
                     onChange={(e) => setGameState(prev => ({ ...prev, opponent: e.target.value }))}
                 >
-                  <option value="">Choisir...</option>
-                  <option value="human">Joueur humain</option>
-                  <option value="ai">IA</option>
+                  <option value="">{t('game.chooseOpponent')}</option>
+                  <option value="human">{t('game.humanPlayer')}</option>
+                  <option value="ai">{t('game.ai')}</option>
                 </select>
               </div>
               <button
                   onClick={startGame}
                   disabled={!gameState.playerName || !gameState.opponent}
               >
-                Commencer la partie
+                {t('game.startGame')}
               </button>
             </div>
         ) : (
             <div className="board-container">
               <div className="status">
                 {gameState.winner ?
-                    `${gameState.winner === gameState.playerColor ? gameState.playerName : (gameState.opponent === 'ai' ? 'IA' : 'Joueur 2')} a gagné !` :
-                    `Au tour de ${getCurrentPlayerName()}`}
+                    t('game.winner', { playerName: getCurrentPlayerName() }) :
+                    t('game.turn', { playerName: getCurrentPlayerName() })}
               </div>
 
               {renderBoard()}
@@ -242,9 +238,9 @@ function App() {
                   <>
                     <div className="overlay" />
                     <div className="dialog visible">
-                      <h3>{gameState.winner === gameState.playerColor ? gameState.playerName : (gameState.opponent === 'ai' ? 'IA' : 'Joueur 2')} a gagné !</h3>
+                      <h3>{t('game.winner', { playerName: getCurrentPlayerName() })}</h3>
                       <button onClick={() => setGameState(prev => ({ ...prev, started: false }))}>
-                        Nouvelle partie
+                        {t('game.newGame')}
                       </button>
                     </div>
                   </>

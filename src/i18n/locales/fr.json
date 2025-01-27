@@ -1,0 +1,19 @@
+{
+  "game": {
+    "title": "Gobang",
+    "yourNickname": "Votre pseudo",
+    "yourColor": "Votre couleur",
+    "opponent": "Adversaire",
+    "chooseOpponent": "Choisir...",
+    "humanPlayer": "Joueur humain",
+    "ai": "IA",
+    "startGame": "Commencer la partie",
+    "newGame": "Nouvelle partie",
+    "turn": "Au tour de {{playerName}}",
+    "winner": "{{playerName}} a gagné !",
+    "player2": "Joueur 2"
+  },
+  "colorSelection": {
+    "label": "Sélection de la couleur"
+  }
+}
