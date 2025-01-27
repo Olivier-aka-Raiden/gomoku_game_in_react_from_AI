@@ -1,0 +1,9 @@
+node_modules
+.logs
+.git
+vendor
+.env.local
+config.ini
+__pycache__
+.idea
+.env
