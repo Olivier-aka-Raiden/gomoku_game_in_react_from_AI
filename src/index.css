@@ -115,6 +115,7 @@ body.dark-mode {
 .dark-mode .form-group input,
 .dark-mode .form-group select {
   border-color: var(--border-dark);
+  background: #444;
 }
 
 .board-container {
